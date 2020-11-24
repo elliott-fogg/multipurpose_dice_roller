@@ -28,12 +28,30 @@ function setup_rollers() {
 		btn.type = "button";
 		btn.value = name;
 		btn.title = formula;
+		btn.style = "margin-right: 10px;";
 		let output = document.createElement("p");
-		output.style = "display: inline-block;";
+		output.style = "display: inline;";
 		btn.onclick = function() {output.innerHTML = roll(...roll_info);}
 		roll_div.appendChild(btn);
 		roll_div.appendChild(output);
 		roll_div.appendChild(document.createElement("br"));
+	}
+
+	roll_div.appendChild(document.createElement("br"));
+	var clear_btn = document.createElement("input");
+	clear_btn.type = "button";
+	clear_btn.style = "color: red;";
+	clear_btn.value = "Clear Rolls";
+	clear_btn.onclick = clear_rolls;
+	roll_div.appendChild(clear_btn);
+
+}
+
+function clear_rolls() {
+	var roll_div = document.getElementById("dice_rollers");
+	var outputs = roll_div.getElementsByTagName("p");
+	for (let p of outputs) {
+		p.innerHTML = "";
 	}
 }
 
