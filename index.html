@@ -7,15 +7,48 @@
 </head>
 <body>
 
-	<h1>L5R Dice Roller</h1>
-	<p>A Dice Roller for use in our L5R Campaign</p>
+	<h1>Customisable Dice Roller</h1>
+	<p>Create some custom dice rollers! You can specify a Multiplier of a flat 
+		Constant to add to the roll. Click on the roll buttons at the bottom to
+		remove them. Once you're done, click "Create Rollers!" and the rolls
+		will be created up here at the top. You can assign names to them, and
+		the roll formula will show up when you hover over them.
 
-	<div id="dice_roller_content">
-		<p>DICE_ROLLER_PLACEHOLDER</p>
+		Once you've created your rolls, you can also bookmark the page to return
+		to it, and pass the URL to other people.
+	</p>
+
+	<div id="dice_rollers"></div>
+
+	<div style="border: solid black 1px">
+		<p style="display: inline-block">Roll Name: </p>
+		<input type="text" id="input_name" placeholder="Add a name (optional)">
+		<br>
+		<p style="display: inline-block">Sides: </p>
+		<input type="number" id="input_num_sides" min=1 value=6>
+		<br>
+		<p style="display: inline-block">Number of dice: </p>
+		<input type="number" id="input_num_dice" min=1 value=1>
+		<br>
+		<p style="display: inline-block">Multiplier: </p>
+		<input type="number" id="input_multiplier" value=1>
+		<br>
+		<p style="display: inline-block">Add Constant: </p>
+		<input type="number" id="input_add_flat" value=0>
+		<br>
+		<input type="button" value="Add Dice" id="add_dice" onclick="add_dice();">
 	</div>
 
+	<div id="dice_buttons">
+		<p style="display: inline-block;">Current Dice Rollers:</p>
+	</div>
+
+	<input type="button" value="Create Rollers!" onclick="reload_page();">
+
 	<script>
-		findGetParameter();
+		setup_rollers();
+		console.log(window.location.search);
+		console.log(findGetParameter("rolls"));
 	</script>
 
 </body>
