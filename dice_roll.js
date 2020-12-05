@@ -29,6 +29,13 @@ function roll2() {
 	b_roll(2)
 }
 
+function roll3() {
+	var stress_dice = parseInt(document.getElementById("d3").value);
+	var roll = Math.ceil(Math.random() * 6);
+	var output_text = `${roll} + ${stress_dice} = ${roll + stress_dice}`;
+	document.getElementById("p3").innerHTML = output_text;
+}
+
 function findGetParameter(parameterName) {
 	items = window.location.search.substr(1).split('&');
 	for (let i = 0; i < items.length; i++) {
