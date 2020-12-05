@@ -1,3 +1,34 @@
+function b_roll(n) {
+	var d_id = "d" + n.toString();
+	var p_id = "p" + n.toString();
+	console.log(p_id)
+	console.log(d_id)
+	var dice_num = document.getElementById(d_id).value;
+	var rolls = [];
+	for (let i=0; i < dice_num; i++) {
+		let roll = Math.ceil(Math.random() * 6);
+		rolls.push(roll);
+	}
+	rolls.sort();
+	var out_text = "";
+	for (r of rolls) {
+		let bold = (r == 1 | r == 6) ? true : false;
+		if (bold) {out_text += "<b>"};
+		out_text += r;
+		if (bold) {out_text += "</b>"};
+		out_text += "  ";
+	}
+	document.getElementById(p_id).innerHTML = out_text;
+}
+
+function roll1() {
+	b_roll(1);
+}
+
+function roll2() {
+	b_roll(2)
+}
+
 function findGetParameter(parameterName) {
 	items = window.location.search.substr(1).split('&');
 	for (let i = 0; i < items.length; i++) {
@@ -11,11 +42,11 @@ function findGetParameter(parameterName) {
 
 function setup_rollers() {
 	var rolls_url = findGetParameter("rolls");
-	var rolls = rolls_url.split("_");
+	if (rolls_url == null) {return};
 
+	var rolls = rolls_url.split("_");
 	var roll_div = document.getElementById("dice_rollers");
 	for (let r of rolls) {
-		if (r == "") {continue;}; // Skip the dud value at the end
 		let roll_info = get_roll_info(r);
 		let name = roll_info.shift();
 		let formula = create_roll_name(...roll_info);
@@ -44,7 +75,6 @@ function setup_rollers() {
 	clear_btn.value = "Clear Rolls";
 	clear_btn.onclick = clear_rolls;
 	roll_div.appendChild(clear_btn);
-
 }
 
 function clear_rolls() {
@@ -102,6 +132,11 @@ function reload_page() {
 	for (let btn of roll_buttons) {
 		roll_ids += btn.value + "_";
 	}
+
+	if (roll_ids.length > 1) {
+		roll_ids = roll_ids.substring(0, roll_ids.length - 1);
+	}
+
 	var origin = window.location.origin;
 	var pathname = window.location.pathname;
 	var key = encodeURIComponent("rolls");
